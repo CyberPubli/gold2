@@ -12,7 +12,7 @@
       
       body {
         font-family: 'Segoe UI', 'Apple Color Emoji', 'Segoe UI Emoji', Tahoma, Geneva, Verdana, sans-serif;
-        width: 280px;
+        width: 400px;
         background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
       }
       
@@ -59,7 +59,7 @@
       #pestanas-container {
         flex: 1 !important;
         min-height: 70px;
-        max-height: 80px;
+        max-height: 450px;
         display: grid !important;
         grid-template-columns: 1fr !important;
         gap: 4px !important;
@@ -185,6 +185,17 @@
         background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
         padding: 6px 10px;
         font-size: 10px;
+      }
+
+      #detenerTodasBtn {
+        background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
+        padding: 6px 10px;
+        font-size: 10px;
+        grid-column: 1 / -1;
+      }
+
+      #detenerTodasBtn:hover {
+        background: linear-gradient(135deg, #991b1b 0%, #7f1d1d 100%);
       }
 
       .mapeos-section {
@@ -696,6 +707,7 @@
           <button id="mapeoBtn">🔗 Mapeos</button>
           <button id="nomenclaturaBtn">📋 Nomenclatura</button>
         </div>
+        <button id="detenerTodasBtn">⏹️ Detener todas</button>
       </div>
 
       <div class="mapeos-section" id="mapeosSection">

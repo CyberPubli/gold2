@@ -843,6 +843,42 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   }
 });
 
+// ✅ Event listener para "Detener todas"
+document.getElementById('detenerTodasBtn').addEventListener('click', async () => {
+  console.log('[Popup] Botón "Detener todas" presionado');
+  
+  try {
+    const tabs = await chrome.tabs.query({ url: "https://new.clientify.com/team-inbox/*" });
+    console.log(`[Popup] Deteniendo ${tabs.length} pestañas`);
+    
+    if (tabs.length === 0) {
+      addLog('⚠️ No hay pestañas de Clientify abiertas', 'warning');
+      return;
+    }
+    
+    // Enviar mensaje de detener a todas las pestañas
+    for (const tab of tabs) {
+      await chrome.tabs.sendMessage(tab.id, { action: "detenerChats" }).catch((err) => {
+        console.error(`Error al detener tab ${tab.id}:`, err);
+      });
+    }
+    
+    // Limpiar estado de todas las pestañas en storage
+    await chrome.storage.local.set({ tabsActivos: {} });
+    
+    addLog('🛑 Se han detenido todas las pestañas', 'warning');
+    
+    // Actualizar lista de pestañas para reflejar cambios
+    setTimeout(() => {
+      actualizarListaPestanas();
+    }, 500);
+    
+  } catch (error) {
+    console.error('[Popup] Error en detener todas:', error);
+    addLog(`❌ Error al detener: ${error.message}`, 'error');
+  }
+});
+
 // Ejecutar cuando el DOM esté listo
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', () => {
